@@ -1,0 +1,504 @@
+I have signed in github i am new 
+
+Here is my code 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rishikesh — Where the Ganga Meets the Himalayas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0a1b24;
+    --night2:#0e2530;
+    --river:#123640;
+    --river2:#164450;
+    --marigold:#e8901d;
+    --marigold-soft:#f2ac4c;
+    --brass:#c99a3c;
+    --parchment:#f3ead8;
+    --parchment-dim:#d9cdb2;
+    --ink:#0a1b24;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--night);
+    color:var(--parchment);
+    font-family:'Mukta',sans-serif;
+    font-weight:400;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .eyebrow{
+    font-family:'Mukta',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.28em;
+    font-size:.7rem;
+    color:var(--marigold-soft);
+    font-weight:600;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 26px;
+    background:linear-gradient(to bottom, rgba(10,27,36,.92), rgba(10,27,36,0));
+    backdrop-filter:blur(2px);
+  }
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:.03em;}
+  .logo span{color:var(--marigold);}
+  nav.links{display:flex;gap:22px;overflow-x:auto;max-width:70vw;scrollbar-width:none;}
+  nav.links::-webkit-scrollbar{display:none;}
+  nav.links a{
+    font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;
+    white-space:nowrap;color:var(--parchment-dim);text-decoration:none;
+    padding-bottom:3px;border-bottom:1px solid transparent;transition:.25s;
+  }
+  nav.links a:hover{color:var(--marigold-soft);border-color:var(--marigold);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;height:100vh;min-height:640px;
+    display:flex;align-items:flex-end;
+    overflow:hidden;
+    perspective:600px;
+    background:radial-gradient(ellipse at 50% 20%, #16404a 0%, #0a1b24 62%);
+  }
+  .hero .sky-glow{
+    position:absolute;top:-10%;left:50%;transform:translateX(-50%);
+    width:900px;height:900px;border-radius:50%;
+    background:radial-gradient(circle, rgba(232,144,29,.28) 0%, rgba(232,144,29,0) 65%);
+    pointer-events:none;
+  }
+  .mtn{position:absolute;left:0;right:0;bottom:0;width:100%;}
+  .mtn svg{width:100%;height:auto;display:block;}
+  #mtn-back{bottom:14%;opacity:.55;}
+  #mtn-mid{bottom:6%;opacity:.8;}
+  #mtn-front{bottom:0;opacity:1;}
+
+  .diya-field{position:absolute;inset:0;pointer-events:none;z-index:3;}
+  .diya{
+    position:absolute;bottom:-30px;width:10px;height:10px;border-radius:50%;
+    background:var(--marigold);
+    box-shadow:0 0 10px 3px rgba(232,144,29,.9), 0 0 24px 8px rgba(232,144,29,.35);
+    animation:drift linear infinite;
+  }
+  @keyframes drift{
+    0%{transform:translate3d(0,0,0) scale(.6);opacity:0;}
+    8%{opacity:1;}
+    85%{opacity:.85;}
+    100%{transform:translate3d(var(--sway,20px), -108vh, 0) scale(1);opacity:0;}
+  }
+
+  .hero-inner{position:relative;z-index:4;padding:0 6vw 9vh;width:100%;}
+  .hero-inner .eyebrow{margin-bottom:14px;display:block;}
+  .hero h1{
+    font-size:clamp(3.2rem, 9vw, 7.5rem);
+    line-height:.92;margin:0 0 18px;color:var(--parchment);
+    text-shadow:0 4px 40px rgba(0,0,0,.4);
+  }
+  .hero h1 em{color:var(--marigold-soft);font-style:normal;}
+  .hero p.sub{
+    font-size:clamp(1rem,1.6vw,1.25rem);max-width:520px;color:var(--parchment-dim);
+    font-weight:300;line-height:1.55;
+  }
+  .scroll-cue{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--parchment-dim);
+    z-index:4;
+  }
+  .scroll-cue .line{width:1px;height:34px;background:linear-gradient(var(--marigold), transparent);animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+  /* ---------- STAT STRIP ---------- */
+  .stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    background:var(--river);
+    padding:38px 6vw;gap:20px;text-align:center;
+    border-top:1px solid rgba(201,154,60,.25);
+    border-bottom:1px solid rgba(201,154,60,.25);
+  }
+  .stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--marigold-soft);font-weight:600;}
+  .stat span{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--parchment-dim);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.category{position:relative;padding:110px 6vw 70px;}
+  section.category.alt{background:var(--night2);}
+  .cat-head{max-width:760px;margin-bottom:52px;}
+  .cat-head .eyebrow{margin-bottom:10px;}
+  .cat-head h2{font-size:clamp(2.2rem,4.4vw,3.6rem);margin:0 0 14px;}
+  .cat-head p{color:var(--parchment-dim);font-weight:300;line-height:1.6;max-width:56ch;font-size:1rem;}
+
+  .banner{
+    position:relative;border-radius:2px;overflow:hidden;height:340px;margin-bottom:46px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+  }
+  .banner img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.02);}
+  .banner .banner-tint{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(10,27,36,.05) 0%, rgba(10,27,36,.85) 100%);
+  }
+  .banner .banner-cap{
+    position:absolute;left:26px;bottom:20px;font-size:.78rem;color:var(--parchment-dim);
+    letter-spacing:.05em;
+  }
+
+  /* featured spot cards w/ tilt */
+  .featured-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:24px;margin-bottom:8px;
+  }
+  .tilt-card{
+    background:var(--night2);border:1px solid rgba(201,154,60,.2);
+    border-radius:2px;padding:26px 24px;transform-style:preserve-3d;
+    transition:transform .12s ease-out, border-color .3s;
+    will-change:transform;
+  }
+  .tilt-card:hover{border-color:rgba(232,144,29,.55);}
+  .tilt-card .num{font-family:'Cormorant Garamond',serif;color:var(--brass);font-size:.85rem;letter-spacing:.1em;}
+  .tilt-card h3{margin:10px 0 8px;font-size:1.5rem;color:var(--parchment);}
+  .tilt-card p{margin:0;font-size:.88rem;color:var(--parchment-dim);line-height:1.55;font-weight:300;}
+
+  /* chip grid for the full listing */
+  .chip-grid{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:34px;
+  }
+  .chip{
+    border:1px solid rgba(243,234,216,.18);
+    padding:9px 16px;font-size:.82rem;color:var(--parchment-dim);
+    border-radius:20px;transition:.25s;
+  }
+  .chip:hover{border-color:var(--marigold);color:var(--parchment);background:rgba(232,144,29,.08);}
+
+  /* icon-pattern sections (adventure / parks / cafes) */
+  .icon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;}
+  .icon-card{
+    background:linear-gradient(160deg, var(--river2), var(--river));
+    border-radius:2px;padding:26px 22px;border:1px solid rgba(201,154,60,.18);
+  }
+  .icon-card .glyph{font-size:1.6rem;margin-bottom:14px;display:block;}
+  .icon-card h4{margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;}
+  .icon-card p{margin:0;font-size:.82rem;color:var(--parchment-dim);font-weight:300;line-height:1.5;}
+
+  /* aarti feature band */
+  .feature-band{
+    position:relative;height:70vh;min-height:460px;display:flex;align-items:center;
+    margin:20px 0;
+  }
+  .feature-band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .feature-band::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg, rgba(10,27,36,.94) 15%, rgba(10,27,36,.35) 60%, rgba(10,27,36,.75) 100%);
+  }
+  .feature-band .fb-inner{position:relative;z-index:2;padding:0 6vw;max-width:560px;}
+  .feature-band .eyebrow{margin-bottom:12px;}
+  .feature-band h2{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 16px;}
+  .feature-band p{color:var(--parchment-dim);font-weight:300;line-height:1.65;font-size:1rem;}
+
+  /* footer */
+  footer{
+    padding:70px 6vw 40px;background:var(--night2);border-top:1px solid rgba(201,154,60,.2);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;
+  }
+  footer .f-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;}
+  footer .f-logo span{color:var(--marigold);}
+  footer p{color:var(--parchment-dim);font-size:.85rem;max-width:380px;font-weight:300;line-height:1.6;}
+  footer .f-note{font-size:.72rem;letter-spacing:.08em;color:var(--parchment-dim);opacity:.6;}
+
+  @media (max-width:720px){
+    nav.links{display:none;}
+    .banner{height:220px;}
+    section.category{padding:80px 6vw 50px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .diya{animation:none;display:none;}
+    html{scroll-behavior:auto;}
+    .tilt-card{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">रिषिकेश <span>Rishikesh</span></div>
+  <nav class="links">
+    <a href="#landmarks">Landmarks</a>
+    <a href="#ghats">Ghats</a>
+    <a href="#ashrams">Ashrams</a>
+    <a href="#temples">Temples</a>
+    <a href="#waterfalls">Waterfalls</a>
+    <a href="#adventure">Adventure</a>
+    <a href="#parks">Wildlife</a>
+    <a href="#cafes">Cafes</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="sky-glow"></div>
+  <div class="mtn" id="mtn-back"><svg viewBox="0 0 1440 400" preserveAspectRatio="none"><path fill="#0e2530" d="M0,300 L120,180 260,260 400,120 560,240 700,90 860,220 1000,140 1160,250 1300,160 1440,240 1440,400 0,400 Z"/></svg></div>
+  <div class="mtn" id="mtn-mid"><svg viewBox="0 0 1440 340" preserveAspectRatio="none"><path fill="#123640" d="M0,260 L160,140 320,220 480,100 640,210 820,80 980,200 1140,110 1300,220 1440,150 1440,340 0,340 Z"/></svg></div>
+  <div class="mtn" id="mtn-front"><svg viewBox="0 0 1440 260" preserveAspectRatio="none"><path fill="#0a1b24" d="M0,220 L140,120 300,200 460,90 640,190 820,60 1000,180 1180,100 1320,200 1440,140 1440,260 0,260 Z"/></svg></div>
+  <div class="diya-field" id="diyaField"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Uttarakhand · Himalayan foothills · Banks of the Ganga</span>
+    <h1>Rishikesh, <em>reflected</em></h1>
+    <p class="sub">A pilgrim town where suspension bridges sway over the Ganga, ashram bells mark the hour, and the Himalayas rise straight out of the riverbank. Every ghat, temple and trail on this page is a real place you can walk to.</p>
+  </div>
+  <div class="scroll-cue"><span>Scroll the river</span><div class="line"></div></div>
+</section>
+
+<!-- STAT STRIP -->
+<div class="stats" id="statStrip"></div>
+
+<!-- LANDMARKS -->
+<section class="category" id="landmarks">
+  <div class="cat-head">
+    <span class="eyebrow">01 · Landmarks &amp; Bridges</span>
+    <h2>The bridges that stitch the town together</h2>
+    <p>Rishikesh is built around its river crossings — two great swaying bridges and the neighbourhoods that grew up on either bank.</p>
+  </div>
+  <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Laxman_Jhula_Bridge.jpg?width=1400" alt="Lakshman Jhula suspension bridge over the Ganga"><div class="banner-tint"></div><div class="banner-cap">Lakshman Jhula, the 450-foot iron suspension bridge, 1889</div></div>
+  <div class="featured-grid">
+    <div class="tilt-card"><span class="num">Landmark</span><h3>Lakshman Jhula</h3><p>The town's most photographed crossing — a narrow iron footbridge strung 70 feet above the Ganga, shared with cows, sadhus and troops of monkeys.</p></div>
+    <div class="tilt-card"><span class="num">Landmark</span><h3>Ram Jhula</h3><p>The newer, sturdier cousin downstream, linking Swarg Ashram to Sivananda Nagar and carrying most of the town's foot traffic.</p></div>
+    <div class="tilt-card"><span class="num">Landmark</span><h3>Janki Setu</h3><p>A quieter bridge on the northern edge of town, popular for uncrowded sunrise and sunset views of the water.</p></div>
+    <div class="tilt-card"><span class="num">Landmark</span><h3>Swarg Ashram Area</h3><p>The car-free riverside quarter of temples, bookshops and food stalls that most visitors call the heart of Rishikesh.</p></div>
+  </div>
+  <div class="chip-grid" id="landmarks-chips"></div>
+</section>
+
+<!-- GHATS -->
+<section class="category alt" id="ghats">
+  <div class="cat-head">
+    <span class="eyebrow">02 · Ghats</span>
+    <h2>Stone steps down to the water</h2>
+    <p>Every ghat has its own rhythm — sunrise bathers, evening lamps, or nothing but the sound of the current.</p>
+  </div>
+  <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ganga_ghats,_Rishikesh_2.jpg?width=1400" alt="Stone ghats along the Ganges at Rishikesh"><div class="banner-tint"></div><div class="banner-cap">Ghats along the Ganga at Muni Ki Reti</div></div>
+  <div class="featured-grid">
+    <div class="tilt-card"><span class="num">Ghat</span><h3>Triveni Ghat</h3><p>The town's main ghat and the site of its largest nightly Ganga Aarti, drawing the biggest crowds at dusk.</p></div>
+    <div class="tilt-card"><span class="num">Ghat</span><h3>Parmarth Niketan Ghat</h3><p>A wide, statue-lined ghat where hundreds gather each evening for one of Rishikesh's most elaborate aarti ceremonies.</p></div>
+    <div class="tilt-card"><span class="num">Ghat</span><h3>Ganga Beach</h3><p>A stretch of pale river sand near Tapovan, better suited to quiet sitting than swimming in the current.</p></div>
+  </div>
+  <div class="chip-grid" id="ghats-chips"></div>
+</section>
+
+<!-- ASHRAMS -->
+<section class="category" id="ashrams">
+  <div class="cat-head">
+    <span class="eyebrow">03 · Ashrams</span>
+    <h2>Why they call it the yoga capital</h2>
+    <p>Thirteen working ashrams, from century-old institutions to the studio where the Beatles once wrote songs.</p>
+  </div>
+  <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Front_entrance_of_the_Parmarth_Niketan,_in_Rishikesh,_Uttarakhand.jpg?width=1400" alt="Entrance gate of Parmarth Niketan ashram"><div class="banner-tint"></div><div class="banner-cap">Parmarth Niketan, one of Rishikesh's largest ashrams</div></div>
+  <div class="featured-grid">
+    <div class="tilt-card"><span class="num">Ashram</span><h3>Parmarth Niketan</h3><p>A sprawling riverside ashram with daily yoga halls and the flower-lined ghat where its Ganga Aarti is held each evening.</p></div>
+    <div class="tilt-card"><span class="num">Ashram</span><h3>Sivananda Ashram</h3><p>Founded by Swami Sivananda in 1936, one of the oldest and most influential seats of modern yoga teaching in India.</p></div>
+    <div class="tilt-card"><span class="num">Ashram</span><h3>Maharishi Mahesh Yogi Ashram</h3><p>Known simply as the Beatles Ashram — the abandoned retreat where the band studied meditation in 1968, now open as a gallery of graffiti art.</p></div>
+    <div class="tilt-card"><span class="num">Ashram</span><h3>Art of Living Ashram</h3><p>A large, modern campus on the hills above town offering breathing and meditation courses to visitors from around the world.</p></div>
+  </div>
+  <div class="chip-grid" id="ashrams-chips"></div>
+</section>
+
+<!-- AARTI FEATURE BAND -->
+<section class="feature-band">
+  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ganga_Aarti,_Rishikesh.jpg?width=1600" alt="Ganga Aarti fire ceremony at dusk in Rishikesh">
+  <div class="fb-inner">
+    <span class="eyebrow">Every evening, without fail</span>
+    <h2>The Ganga Aarti</h2>
+    <p>As the sun drops behind the hills, priests swing brass lamps of camphor flame along the riverbank while the crowd sings and floats marigold-lit diyas onto the current — the moment most visitors remember longest after they've left.</p>
+  </div>
+</section>
+
+<!-- TEMPLES -->
+<section class="category" id="temples">
+  <div class="cat-head">
+    <span class="eyebrow">04 · Temples</span>
+    <h2>Shrines on the hills and the water</h2>
+    <p>From a thirteen-storey riverside tower to a Shiva shrine deep in the forest, thirty minutes above town.</p>
+  </div>
+  <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Trayambakeshwar_Temple,_Rishikesh.jpg?width=1400" alt="Trayambakeshwar thirteen-storey temple in Rishikesh"><div class="banner-tint"></div><div class="banner-cap">Trayambakeshwar — the "Tera Manzil" thirteen-storey temple</div></div>
+  <div class="featured-grid">
+    <div class="tilt-card"><span class="num">Temple</span><h3>Neelkanth Mahadev Temple</h3><p>A forested Shiva temple 12 miles above town, reached by a winding mountain road through dense sal forest.</p></div>
+    <div class="tilt-card"><span class="num">Temple</span><h3>Trayambakeshwar Temple</h3><p>Better known as the Tera Manzil ("thirteen-storey") Temple — a candy-striped tower rising beside Lakshman Jhula.</p></div>
+    <div class="tilt-card"><span class="num">Temple</span><h3>Bharat Mandir</h3><p>Rishikesh's oldest temple, said to mark the very spot where the town's name originates, in the old town centre.</p></div>
+    <div class="tilt-card"><span class="num">Temple</span><h3>Kunjapuri Devi Temple</h3><p>A hilltop Devi shrine famous for one of the finest Himalayan sunrise views in the region.</p></div>
+  </div>
+  <div class="chip-grid" id="temples-chips"></div>
+</section>
+
+<!-- WATERFALLS -->
+<section class="category alt" id="waterfalls">
+  <div class="cat-head">
+    <span class="eyebrow">05 · Waterfalls &amp; River Stretches</span>
+    <h2>Cold water, forest trails</h2>
+    <p>A ring of waterfalls in the hills around town, plus the quieter riverside stretches locals keep for themselves.</p>
+  </div>
+  <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bairaj_lake_river_Ganges_Near_aiims_Rishikesh.jpg?width=1400" alt="River Ganges near Rishikesh"><div class="banner-tint"></div><div class="banner-cap">The Ganges running through Rishikesh's outskirts</div></div>
+  <div class="featured-grid">
+    <div class="tilt-card"><span class="num">Waterfall</span><h3>Neer Garh Waterfall</h3><p>The most accessible falls in Rishikesh, a short walk from Tapovan through a canopy of trees.</p></div>
+    <div class="tilt-card"><span class="num">Waterfall</span><h3>Garud Chatti Waterfall</h3><p>A multi-tiered fall on the old pilgrim trail toward Neelkanth, with natural pools for a cold dip.</p></div>
+    <div class="tilt-card"><span class="num">Waterfall</span><h3>Secret Waterfall</h3><p>An off-trail fall known mostly by word of mouth, tucked away from the main tourist paths.</p></div>
+  </div>
+  <div class="chip-grid" id="waterfalls-chips"></div>
+</section>
+
+<!-- ADVENTURE -->
+<section class="category" id="adventure">
+  <div class="cat-head">
+    <span class="eyebrow">06 · Adventure &amp; Outdoor</span>
+    <h2>What put Rishikesh on the adrenaline map</h2>
+    <p>India's white-water capital — rafting, jumping, flying and camping along a 16-mile stretch of the Ganga.</p>
+  </div>
+  <div class="icon-grid" id="adventure-grid"></div>
+</section>
+
+<!-- PARKS -->
+<section class="category alt" id="parks">
+  <div class="cat-head">
+    <span class="eyebrow">07 · Parks &amp; Wildlife</span>
+    <h2>Where the jungle starts</h2>
+    <p>Rishikesh sits on the edge of Rajaji Tiger Reserve — elephants, leopards and over 300 bird species, a short drive from the ghats.</p>
+  </div>
+  <div class="icon-grid" id="parks-grid"></div>
+</section>
+
+<!-- CAFES -->
+<section class="category" id="cafes">
+  <div class="cat-head">
+    <span class="eyebrow">08 · Cafes &amp; Riverside Restaurants</span>
+    <h2>Where the yoga crowd eats</h2>
+    <p>Fifteen riverside cafes built the Rishikesh way — low seating, sattvic menus, and a view of the water.</p>
+  </div>
+  <div class="icon-grid" id="cafes-grid"></div>
+</section>
+
+<footer>
+  <div>
+    <div class="f-logo">रिषिकेश <span>Rishikesh</span></div>
+    <p style="margin-top:14px;">A traveller's map of the Yoga Capital of the World — every bridge, ghat, ashram, temple, waterfall and trail worth knowing before you go.</p>
+  </div>
+  <div class="f-note">Photographs via Wikimedia Commons, used under their respective open licences.</div>
+</footer>
+
+<script>
+// ---------- DATA ----------
+const data = {
+  landmarks: ["Janki Setu","Swarg Ashram Area","Tapovan Area","Muni Ki Reti","Shatrughan Temple Area"],
+  ghats: ["Triveni Ghat","Parmarth Niketan Ghat","Shatrughan Ghat","Sai Ghat","Ganga Beach","Astha Path Riverside Walk","Gita Bhawan Ghat"],
+  ashrams: ["Parmarth Niketan Ashram","Sivananda Ashram","Yoga Niketan Ashram","Swami Dayananda Ashram","Anand Prakash Yoga Ashram","Himalayan Yog Ashram","Phool Chatti Ashram","Omkarananda Ashram","Osho Ganga Dham Ashram","Maharishi Mahesh Yogi Ashram (Beatles Ashram)","Ved Niketan Ashram","Sadhana Mandir Ashram","Art of Living Ashram"],
+  temples: ["Neelkanth Mahadev Temple","Bharat Mandir","Trayambakeshwar Temple (Tera Manzil Temple)","Kunjapuri Devi Temple","Chandreshwar Mahadev Temple","Raghunath Temple","Virbhadra Temple","Someshwar Temple","Shatrughna Temple"],
+  waterfalls: ["Neer Garh Waterfall","Patna Waterfall","Garud Chatti Waterfall","Secret Waterfall","Himshail Waterfall","Rishikund","Marine Drive Riverside Stretch","Shivpuri Riverside Area"],
+};
+const adventure = [
+  ["🚣","River Rafting — Brahmapuri to Rishikesh","A shorter, gentler run through easy rapids, good for first-timers."],
+  ["🌊","River Rafting — Shivpuri to Rishikesh","The classic 16km run through Rishikesh's biggest named rapids."],
+  ["🧗","Cliff Jumping Spots","A handful of riverside rock ledges used for jumps of varying nerve."],
+  ["🛶","Kayaking on the Ganges","Guided kayak sessions on calmer stretches of the river."],
+  ["⛺","Camping in Shivpuri","Riverside tent camps upstream, usually paired with a rafting trip."],
+  ["🪂","Bungee Jumping at Jumpin Heights","India's highest fixed-platform bungee, 83 metres above a canyon."],
+  ["🎢","Giant Swing at Mohan Chatti","A cable swing launched from the same canyon-edge platform."],
+  ["🦅","Flying Fox Adventure","A zip-line strung across the river gorge near Shivpuri."],
+  ["🔥","Riverside Camping Sites","Scattered beach camps further upstream, away from the town crowds."],
+];
+const parks = [
+  ["🐘","Rajaji National Park","A tiger reserve bordering the town, home to elephants, leopards and deer."],
+  ["🐅","Chilla Range","The most visited zone of the reserve, best known for its elephant corridors."],
+  ["🦆","Jhilmil Jheel Conservation Reserve","A wetland reserve further downstream, popular with migratory birdwatchers."],
+];
+const cafes = [
+  ["Little Buddha Cafe"],["The 60's Cafe (Beatles Cafe)"],["Freedom Cafe"],["Ganga View Cafe"],
+  ["Om Freedom Cafe"],["Pure Soul Cafe & Organic Kitchen"],["Secret Garden Cafe"],["Shambala Cafe"],
+  ["Cafe Karma"],["Bistro Nirvana"],["Honey Hut Cafe"],["Tulsi Cafe"],["Ramana's Organic Cafe"],
+  ["Pyramid Cafe"],["Devraj Coffee Corner"],
+];
+
+function fillChips(id, items){
+  const el = document.getElementById(id);
+  el.innerHTML = items.map(t => `<span class="chip">${t}</span>`).join('');
+}
+fillChips('landmarks-chips', data.landmarks);
+fillChips('ghats-chips', data.ghats);
+fillChips('ashrams-chips', data.ashrams);
+fillChips('temples-chips', data.temples);
+fillChips('waterfalls-chips', data.waterfalls);
+
+document.getElementById('adventure-grid').innerHTML = adventure.map(([g,t,d]) =>
+  `<div class="icon-card"><span class="glyph">${g}</span><h4>${t}</h4><p>${d}</p></div>`).join('');
+document.getElementById('parks-grid').innerHTML = parks.map(([g,t,d]) =>
+  `<div class="icon-card"><span class="glyph">${g}</span><h4>${t}</h4><p>${d}</p></div>`).join('');
+document.getElementById('cafes-grid').innerHTML = cafes.map(([t]) =>
+  `<div class="icon-card"><span class="glyph">☕</span><h4>${t}</h4><p>Riverside seating, sattvic menu, Rishikesh institution.</p></div>`).join('');
+
+// stat strip
+const stats = [
+  [7,'Bridges & Landmarks'],[7,'Ghats'],[13,'Ashrams'],[9,'Temples'],
+  [8,'Waterfalls'],[9,'Adventure Spots'],[3,'Parks & Reserves'],[15,'Cafes']
+];
+document.getElementById('statStrip').innerHTML = stats.map(([n,l]) =>
+  `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+
+// ---------- FLOATING DIYAS ----------
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduceMotion){
+  const field = document.getElementById('diyaField');
+  const N = 22;
+  for(let i=0;i<N;i++){
+    const d = document.createElement('div');
+    d.className = 'diya';
+    const left = Math.random()*100;
+    const dur = 9 + Math.random()*10;
+    const delay = Math.random()*14;
+    const sway = (Math.random()*80-40)+'px';
+    d.style.left = left+'%';
+    d.style.animationDuration = dur+'s';
+    d.style.animationDelay = '-'+delay+'s';
+    d.style.setProperty('--sway', sway);
+    field.appendChild(d);
+  }
+
+  // parallax mountains
+  const back = document.getElementById('mtn-back');
+  const mid = document.getElementById('mtn-mid');
+  const front = document.getElementById('mtn-front');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if(y < window.innerHeight){
+      back.style.transform = `translateY(${y*0.15}px)`;
+      mid.style.transform = `translateY(${y*0.3}px)`;
+      front.style.transform = `translateY(${y*0.45}px)`;
+    }
+  }, {passive:true});
+
+  // tilt cards
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left)/r.width - 0.5;
+      const py = (e.clientY - r.top)/r.height - 0.5;
+      card.style.transform = `perspective(600px) rotateX(${py*-10}deg) rotateY(${px*10}deg) translateZ(6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(600px) rotateX(0) rotateY(0) translateZ(0)';
+    });
+  });
+}
+</script>
+</body>
+</html>
+
