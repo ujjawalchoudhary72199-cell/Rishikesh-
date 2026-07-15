@@ -119,6 +119,12 @@
   #mtn-mid{bottom:6%;opacity:.8;}
   #mtn-front{bottom:0;opacity:1;}
 
+  /* animated "flying" scene: clouds, river, temple glow, birds, boats */
+  .fly-canvas{
+    position:absolute;inset:0;width:100%;height:100%;z-index:2;
+    pointer-events:none;transform-origin:50% 65%;
+  }
+
   .diya-field{position:absolute;inset:0;pointer-events:none;z-index:3;}
   .diya{
     position:absolute;bottom:-30px;width:10px;height:10px;border-radius:50%;
@@ -132,7 +138,6 @@
     85%{opacity:.85;}
     100%{transform:translate3d(var(--sway,20px), -108vh, 0) scale(1);opacity:0;}
   }
-
   .hero-inner{position:relative;z-index:4;padding:0 6vw 9vh;width:100%;}
   .hero-inner .eyebrow{margin-bottom:14px;display:block;}
   .hero h1{
@@ -167,8 +172,7 @@
   a.stat{text-decoration:none;display:block;border-radius:6px;padding:10px;transition:.25s;cursor:pointer;}
   a.stat:hover{background:rgba(232,144,29,.08);transform:translateY(-3px);}
   a.stat:hover b{color:var(--parchment);}
-
-  /* ---------- SECTION SHELL ---------- */
+/* ---------- SECTION SHELL ---------- */
   section.category{position:relative;padding:110px 6vw 70px;}
   section.category.alt{background:var(--night2);}
   .cat-head{max-width:760px;margin-bottom:52px;}
@@ -226,8 +230,7 @@
   .icon-card .glyph{font-size:1.6rem;margin-bottom:14px;display:block;}
   .icon-card h4{margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;}
   .icon-card p{margin:0;font-size:.82rem;color:var(--parchment-dim);font-weight:300;line-height:1.5;}
-
-  /* aarti feature band */
+/* aarti feature band */
   .feature-band{
     position:relative;height:70vh;min-height:460px;display:flex;align-items:center;
     margin:20px 0;
@@ -298,8 +301,7 @@
     opacity:0;pointer-events:none;transform:translateX(6px);transition:.2s;
   }
   .wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0);}
-
-  /* inline WhatsApp chip used inside cards/footer */
+/* inline WhatsApp chip used inside cards/footer */
   .wa-inline{
     display:inline-flex;align-items:center;gap:7px;
     background:#25D366;color:#0a1b24;text-decoration:none;
@@ -308,6 +310,20 @@
   }
   .wa-inline:hover{filter:brightness(1.08);}
   .wa-inline svg{width:15px;height:15px;}
+
+  /* floating ambient-sound toggle */
+  .sound-toggle{
+    position:fixed;left:22px;bottom:22px;z-index:200;
+    display:flex;align-items:center;gap:9px;
+    background:rgba(10,27,36,.78);border:1px solid rgba(201,154,60,.4);
+    color:var(--parchment);font-family:'Mukta',sans-serif;font-size:.78rem;
+    letter-spacing:.03em;padding:11px 18px 11px 14px;border-radius:30px;
+    cursor:pointer;backdrop-filter:blur(6px);transition:border-color .25s, background .25s;
+  }
+  .sound-toggle:hover{border-color:var(--marigold);background:rgba(10,27,36,.94);}
+  .sound-toggle .dot{width:8px;height:8px;border-radius:50%;background:var(--marigold-soft);opacity:.4;transition:opacity .3s;flex:none;}
+  .sound-toggle.playing .dot{opacity:1;box-shadow:0 0 8px 2px rgba(232,144,29,.7);animation:soundPulse 1.6s ease-in-out infinite;}
+  @keyframes soundPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.5);}}
 
   /* booking panels (Hotel / Rafting) */
   .booking-panel{
@@ -331,6 +347,7 @@
 
   @media (prefers-reduced-motion: reduce){
     .wa-pulse{animation:none;}
+    .sound-toggle.playing .dot{animation:none;}
   }
 
   /* footer */
@@ -360,6 +377,8 @@
   @media (max-width:480px){
     .stats{grid-template-columns:repeat(2,1fr);}
     header{padding:14px 18px;}
+    .sound-toggle{left:14px;bottom:14px;padding:10px 14px 10px 11px;font-size:.7rem;}
+    .sound-toggle .label-full{display:none;}
   }
   @media (prefers-reduced-motion: reduce){
     .diya{animation:none;display:none;}
@@ -404,6 +423,7 @@
   <div class="mtn" id="mtn-back"><svg viewBox="0 0 1440 400" preserveAspectRatio="none"><path fill="#0e2530" d="M0,300 L120,180 260,260 400,120 560,240 700,90 860,220 1000,140 1160,250 1300,160 1440,240 1440,400 0,400 Z"/></svg></div>
   <div class="mtn" id="mtn-mid"><svg viewBox="0 0 1440 340" preserveAspectRatio="none"><path fill="#123640" d="M0,260 L160,140 320,220 480,100 640,210 820,80 980,200 1140,110 1300,220 1440,150 1440,340 0,340 Z"/></svg></div>
   <div class="mtn" id="mtn-front"><svg viewBox="0 0 1440 260" preserveAspectRatio="none"><path fill="#0a1b24" d="M0,220 L140,120 300,200 460,90 640,190 820,60 1000,180 1180,100 1320,200 1440,140 1440,260 0,260 Z"/></svg></div>
+  <canvas class="fly-canvas" id="flyCanvas" aria-hidden="true"></canvas>
   <div class="diya-field" id="diyaField"></div>
   <div class="hero-inner">
     <span class="eyebrow">Uttarakhand · Himalayan foothills · Banks of the Ganga</span>
@@ -412,7 +432,6 @@
   </div>
   <div class="scroll-cue"><span>Scroll the river</span><div class="line"></div></div>
 </section>
-
 <!-- STAT STRIP -->
 <div class="stats" id="statStrip"></div>
 
@@ -475,7 +494,6 @@
     <p>As the sun drops behind the hills, priests swing brass lamps of camphor flame along the riverbank while the crowd sings and floats marigold-lit diyas onto the current — the moment most visitors remember longest after they've left.</p>
   </div>
 </section>
-
 <!-- TEMPLES -->
 <section class="category" id="temples">
   <div class="cat-head">
@@ -492,7 +510,6 @@
   </div>
   <div class="chip-grid" id="temples-chips"></div>
 </section>
-
 <!-- WATERFALLS -->
 <section class="category alt" id="waterfalls">
   <div class="cat-head">
@@ -625,7 +642,6 @@
     </div>
   </div>
 </section>
-
 <!-- MAP -->
 <section class="map-section" id="map">
   <div class="cat-head">
@@ -648,7 +664,7 @@
       Chat on WhatsApp
     </a>
   </div>
-  <div class="f-note">Photographs via Wikimedia Commons, used under their respective open licences.</div>
+  <div class="f-note">Photographs via Wikimedia Commons, used under their respective open licences. Hero soundscape and animation are generated in-browser, not recorded audio.</div>
 </footer>
 
 <!-- FLOATING WHATSAPP BUTTON -->
@@ -658,6 +674,12 @@
   <span class="wa-tooltip">Chat with us on WhatsApp</span>
 </a>
 
+<!-- FLOATING AMBIENT SOUND TOGGLE -->
+<button class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Toggle ambient Ganga soundscape">
+  <span class="dot"></span><span class="label-full">Ganga Ambience</span><span class="label-short" style="display:none;">Sound</span>
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/15.5.27/Tone.js"></script>
 <script>
 // ---------- DATA ----------
 const data = {
@@ -699,7 +721,6 @@ function waUrl(place){
   const msg = `Hi! I'd like to know more about ${place} in Rishikesh.`;
   return `https://wa.me/919634536771?text=${encodeURIComponent(msg)}`;
 }
-// resolve the hardcoded map-link buttons on featured cards
 document.querySelectorAll('.map-link[data-place]').forEach(a => {
   a.href = mapUrl(a.getAttribute('data-place'));
   a.target = '_blank';
@@ -725,7 +746,6 @@ document.getElementById('parks-grid').innerHTML = parks.map(([g,t,d]) =>
 document.getElementById('cafes-grid').innerHTML = cafes.map(([t]) =>
   `<div class="icon-card"><span class="glyph">☕</span><h4>${t}</h4><p>Riverside seating, sattvic menu, Rishikesh institution.</p><a class="map-link" href="${mapUrl(t)}" target="_blank" rel="noopener">📍 View on Google Maps</a></div>`).join('');
 
-// map legend — quick jump pins for the most-searched spots
 const legendSpots = [
   "Lakshman Jhula","Ram Jhula","Triveni Ghat","Parmarth Niketan","Beatles Ashram",
   "Trayambakeshwar Temple","Neelkanth Mahadev Temple","Neer Garh Waterfall",
@@ -734,7 +754,6 @@ const legendSpots = [
 document.getElementById('mapLegend').innerHTML = legendSpots.map(s =>
   `<a href="${mapUrl(s)}" target="_blank" rel="noopener">📍 ${s}</a>`).join('');
 
-// stat strip
 const stats = [
   [7,'Bridges & Landmarks','#landmarks'],[7,'Ghats','#ghats'],[13,'Ashrams','#ashrams'],[9,'Temples','#temples'],
   [8,'Waterfalls','#waterfalls'],[9,'Adventure Spots','#adventure'],[3,'Parks & Reserves','#parks'],[15,'Cafes','#cafes']
@@ -787,7 +806,6 @@ if(!reduceMotion){
     });
   });
 }
-
 // ---------- HAMBURGER MENU ----------
 const hamburgerBtn = document.getElementById('hamburgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -804,6 +822,285 @@ hamburgerBtn.addEventListener('click', () => {
   document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+// ---------- "FLYING OVER RISHIKESH" HERO SCENE ----------
+// Ganga flowing, glowing temple, birds overhead, rafting boats moving in real time.
+(function(){
+  const canvas = document.getElementById('flyCanvas');
+  const hero = document.getElementById('hero');
+  if(!canvas || !hero) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, DPR;
+
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = hero.clientWidth; H = hero.clientHeight;
+    canvas.width = Math.round(W*DPR);
+    canvas.height = Math.round(H*DPR);
+    canvas.style.width = W+'px';
+    canvas.style.height = H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const reduce = reduceMotion;
+
+  // scene actors, positions stored as 0..1 fractions of the hero box
+  const clouds = Array.from({length:6}, () => ({
+    x: Math.random(), y: 0.04 + Math.random()*0.20, s: 60 + Math.random()*90,
+    speed: 0.006 + Math.random()*0.006, op: 0.08 + Math.random()*0.10
+  }));
+
+  const birds = Array.from({length:8}, () => ({
+    x: Math.random(), y: 0.16 + Math.random()*0.30,
+    speed: (0.02 + Math.random()*0.02), phase: Math.random()*Math.PI*2,
+    size: 5 + Math.random()*5, dir: Math.random() < 0.5 ? 1 : -1
+  }));
+
+  const boats = Array.from({length:4}, () => ({
+    x: Math.random(), yOff: Math.random(), speed: 0.010 + Math.random()*0.010,
+    size: 15 + Math.random()*9, bob: Math.random()*Math.PI*2
+  }));
+
+  const temple = { xr: 0.85, baseYr: 0.775 };
+
+  function drawSun(time){
+    const cx = W*0.5, cy = H*0.14;
+    const pulse = 0.85 + 0.15*Math.sin(time*0.0008);
+    const r = 90*pulse;
+    const g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+    g.addColorStop(0, 'rgba(255,214,140,0.55)');
+    g.addColorStop(0.5, 'rgba(232,144,29,0.22)');
+    g.addColorStop(1, 'rgba(232,144,29,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+  }
+function drawCloud(c){
+    const x = c.x*W, y = c.y*H;
+    ctx.save();
+    ctx.globalAlpha = c.op;
+    const g = ctx.createRadialGradient(x,y,0,x,y,c.s);
+    g.addColorStop(0,'rgba(243,234,216,0.9)');
+    g.addColorStop(1,'rgba(243,234,216,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.ellipse(x,y,c.s,c.s*0.42,0,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawRiver(time){
+    const riverTop = H*0.72;
+    const g = ctx.createLinearGradient(0,riverTop,0,H);
+    g.addColorStop(0,'rgba(22,64,74,0)');
+    g.addColorStop(0.12,'rgba(18,54,64,0.55)');
+    g.addColorStop(1,'rgba(8,20,27,0.97)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(0, riverTop+18);
+    for(let x=0; x<=W; x+=20){
+      const wave = Math.sin((x*0.012)+(time*0.0011))*6 + Math.sin((x*0.03)+(time*0.002))*3;
+      ctx.lineTo(x, riverTop+wave);
+    }
+    ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath(); ctx.fill();
+
+    // flowing sunset-reflection stripes
+    ctx.save();
+    ctx.globalAlpha = 0.32;
+    for(let i=0;i<5;i++){
+      const yy = riverTop + (H-riverTop)*(0.15 + i*0.16);
+      const offset = (time*0.02*(i%2 ? 1 : -1)) % 60;
+      ctx.strokeStyle = i%2===0 ? 'rgba(242,172,76,0.5)' : 'rgba(201,154,60,0.35)';
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      for(let x=-60; x<=W+60; x+=6){
+        const wobble = Math.sin((x*0.05)+(time*0.0015)+i)*2.5;
+        const xx = x+offset;
+        if(x===-60) ctx.moveTo(xx, yy+wobble); else ctx.lineTo(xx, yy+wobble);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // twinkling sparkles
+    ctx.save();
+    for(let i=0;i<26;i++){
+      const sx = (i*97 + time*0.03*((i%3)+1)) % W;
+      const sy = riverTop + (H-riverTop)*0.18 + ((i*53) % ((H-riverTop)*0.72));
+      const tw = 0.3 + 0.7*Math.abs(Math.sin(time*0.002 + i));
+      ctx.globalAlpha = tw*0.5;
+      ctx.fillStyle = '#f2ac4c';
+      ctx.beginPath(); ctx.arc(sx, sy, 1.1, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawTemple(time){
+    const x = temple.xr*W, y = temple.baseYr*H;
+    ctx.save();
+    ctx.fillStyle = 'rgba(5,14,19,0.92)';
+    ctx.beginPath();
+    ctx.moveTo(x-32,y+42);
+    ctx.lineTo(x-32,y+6);
+    ctx.lineTo(x-15,y+6);
+    ctx.lineTo(x-15,y-15);
+    ctx.lineTo(x-6,y-15);
+    ctx.lineTo(x-6,y-32);
+    ctx.lineTo(x,y-50);
+    ctx.lineTo(x+6,y-32);
+    ctx.lineTo(x+6,y-15);
+    ctx.lineTo(x+15,y-15);
+    ctx.lineTo(x+15,y+6);
+    ctx.lineTo(x+32,y+6);
+    ctx.lineTo(x+32,y+42);
+    ctx.closePath();
+    ctx.fill();
+
+    const glow = 0.5 + 0.5*Math.sin(time*0.0025);
+    const dots = [[-19,15],[19,15],[-9,-7],[9,-7],[0,-26]];
+    dots.forEach(([dx,dy]) => {
+      const gx = x+dx, gy = y+dy;
+      const rg = ctx.createRadialGradient(gx,gy,0,gx,gy,10);
+      rg.addColorStop(0, `rgba(232,144,29,${0.9*glow})`);
+      rg.addColorStop(1, 'rgba(232,144,29,0)');
+      ctx.fillStyle = rg;
+      ctx.beginPath(); ctx.arc(gx,gy,10,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = `rgba(255,214,140,${0.85*glow})`;
+      ctx.beginPath(); ctx.arc(gx,gy,1.6,0,Math.PI*2); ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  function drawBoat(b, time){
+    const riverTop = H*0.72, riverH = H - riverTop;
+    const x = b.x*W;
+    const y = riverTop + riverH*(0.42 + b.yOff*0.42) + Math.sin(time*0.003+b.bob)*3;
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.fillStyle = 'rgba(6,16,22,0.88)';
+    ctx.beginPath();
+    ctx.moveTo(-b.size, 3);
+    ctx.quadraticCurveTo(0, -b.size*0.42, b.size, 3);
+    ctx.quadraticCurveTo(0, b.size*0.36, -b.size, 3);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(20,30,36,0.9)';
+    for(let i=-1;i<=1;i++){ ctx.beginPath(); ctx.arc(i*b.size*0.4, -2, 2, 0, Math.PI*2); ctx.fill(); }
+    ctx.restore();
+  }
+
+  function drawBird(b, time){
+    const x = b.x*W, y = b.y*H + Math.sin(time*0.002+b.phase)*8;
+    const flap = Math.sin(time*0.012+b.phase)*0.6;
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.scale(b.dir,1);
+    ctx.strokeStyle = 'rgba(10,27,36,0.55)';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(-b.size,0);
+    ctx.quadraticCurveTo(-b.size*0.4, -b.size*flap, 0, 0);
+    ctx.quadraticCurveTo(b.size*0.4, -b.size*flap, b.size, 0);
+    ctx.stroke();
+    ctx.restore();
+  }
+const t0 = performance.now();
+  function frame(now){
+    const time = now - t0;
+    ctx.clearRect(0,0,W,H);
+
+    drawSun(time);
+    clouds.forEach(c => {
+      drawCloud(c);
+      if(!reduce){ c.x += c.speed*0.016; if(c.x > 1.25) c.x = -0.25; }
+    });
+
+    drawRiver(time);
+    drawTemple(time);
+
+    boats.forEach(b => {
+      drawBoat(b, time);
+      if(!reduce){ b.x += b.speed*0.016; if(b.x > 1.12) b.x = -0.12; }
+    });
+
+    birds.forEach(b => {
+      drawBird(b, time);
+      if(!reduce){
+        b.x += b.speed*0.016*b.dir;
+        if(b.x > 1.18) b.x = -0.18;
+        if(b.x < -0.18) b.x = 1.18;
+      }
+    });
+requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // subtle "flying forward" zoom as the hero scrolls out of view
+  if(!reduce){
+    window.addEventListener('scroll', () => {
+      const p = Math.min(1, window.scrollY / (hero.offsetHeight || 1));
+      canvas.style.transform = `scale(${1 + p*0.08}) translateY(${p*30}px)`;
+      canvas.style.opacity = String(1 - p*0.55);
+    }, {passive:true});
+  }
+})();
+
+// ---------- GENERATIVE "GANGA AMBIENCE" SOUNDSCAPE ----------
+// River-flow noise + a slow temple pad + occasional bells. All synthesised
+// in-browser via Tone.js — no recorded audio, so nothing to license.
+(function(){
+  const btn = document.getElementById('soundToggle');
+  if(!btn) return;
+  let started = false;
+  let playing = false;
+async function setup(){
+    await Tone.start();
+    const transport = (typeof Tone.getTransport === 'function') ? Tone.getTransport() : Tone.Transport;
+
+    // river flow: filtered pink noise, slowly sweeping like water over stone
+    const riverNoise = new Tone.Noise('pink');
+    const riverFilter = new Tone.AutoFilter({ frequency: 0.06, baseFrequency: 180, octaves: 2.5 }).start();
+    const riverGain = new Tone.Gain(0.05).toDestination();
+    riverNoise.connect(riverFilter);
+    riverFilter.connect(riverGain);
+    riverNoise.start();
+
+    // sustained ashram-evening pad
+    const pad = new Tone.PolySynth(Tone.Synth, {
+      oscillator: { type: 'sine' },
+      envelope: { attack: 5, decay: 3, sustain: 0.6, release: 8 }
+    }).toDestination();
+    pad.volume.value = -22;
+    pad.triggerAttack(['D3','A3','D4','F#4']);
+
+    // occasional distant temple bell
+    const bell = new Tone.MetalSynth({
+      frequency: 220,
+      envelope: { attack: 0.001, decay: 1.4, release: 0.6 },
+      harmonicity: 5.1, modulationIndex: 16, resonance: 2200, octaves: 1.2
+    }).toDestination();
+    bell.volume.value = -20;
+
+    const bellLoop = new Tone.Loop((time) => {
+      if(Math.random() < 0.55) bell.triggerAttackRelease('C5', 0.4, time);
+    }, '6m');
+    bellLoop.start(0);
+
+    transport.start();
+    started = true;
+  }
+
+  btn.addEventListener('click', async () => {
+    try{
+      if(!started) await setup();
+      playing = !playing;
+      Tone.Destination.mute = !playing;
+      btn.classList.toggle('playing', playing);
+      btn.setAttribute('aria-pressed', String(playing));
+      btn.querySelector('.label-full').textContent = playing ? 'Ganga Ambience · On' : 'Ganga Ambience';
+    }catch(err){
+      console.warn('Ambient audio unavailable:', err);
+    }
+  });
+})();
 </script>
 </body>
 </html>
