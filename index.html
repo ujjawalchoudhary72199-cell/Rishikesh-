@@ -205,6 +205,77 @@
   .feature-band h2{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 16px;}
   .feature-band p{color:var(--parchment-dim);font-weight:300;line-height:1.65;font-size:1rem;}
 
+  /* map links on cards */
+  .map-link{
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:14px;font-size:.76rem;letter-spacing:.04em;
+    color:var(--marigold-soft);text-decoration:none;
+    border-top:1px solid rgba(201,154,60,.2);padding-top:12px;width:100%;
+    transition:.2s;
+  }
+  .map-link:hover{color:var(--parchment);}
+  .map-link svg{width:12px;height:12px;flex:none;}
+  .chip{position:relative;padding-right:16px;}
+  .chip-link{text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+  .chip-link:hover .chip{border-color:var(--marigold);color:var(--parchment);background:rgba(232,144,29,.08);}
+
+  /* map section */
+  .map-section{padding:110px 6vw 100px;background:var(--night2);}
+  .map-shell{
+    border-radius:2px;overflow:hidden;border:1px solid rgba(201,154,60,.25);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+  }
+  .map-shell iframe{width:100%;height:520px;border:0;display:block;filter:saturate(.9) contrast(1.05);}
+  .map-legend{
+    display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;
+  }
+  .map-legend a{
+    font-size:.78rem;color:var(--parchment-dim);text-decoration:none;
+    border:1px solid rgba(243,234,216,.18);padding:8px 14px;border-radius:20px;
+    transition:.25s;display:inline-flex;align-items:center;gap:6px;
+  }
+  .map-legend a:hover{border-color:var(--marigold);color:var(--parchment);background:rgba(232,144,29,.08);}
+
+  /* WhatsApp floating button */
+  .wa-float{
+    position:fixed;right:22px;bottom:22px;z-index:200;
+    width:58px;height:58px;border-radius:50%;
+    background:#25D366;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 30px -6px rgba(0,0,0,.55);
+    text-decoration:none;transition:transform .2s ease;
+  }
+  .wa-float:hover{transform:scale(1.08);}
+  .wa-float svg{width:30px;height:30px;}
+  .wa-pulse{
+    position:absolute;inset:0;border-radius:50%;background:#25D366;
+    animation:waPulse 2.2s ease-out infinite;
+  }
+  @keyframes waPulse{
+    0%{transform:scale(1);opacity:.55;}
+    100%{transform:scale(1.9);opacity:0;}
+  }
+  .wa-tooltip{
+    position:absolute;right:70px;bottom:14px;white-space:nowrap;
+    background:var(--night2);color:var(--parchment);font-size:.78rem;
+    padding:8px 14px;border-radius:6px;border:1px solid rgba(201,154,60,.3);
+    opacity:0;pointer-events:none;transform:translateX(6px);transition:.2s;
+  }
+  .wa-float:hover .wa-tooltip{opacity:1;transform:translateX(0);}
+
+  /* inline WhatsApp chip used inside cards/footer */
+  .wa-inline{
+    display:inline-flex;align-items:center;gap:7px;
+    background:#25D366;color:#0a1b24;text-decoration:none;
+    font-weight:600;font-size:.82rem;padding:10px 18px;border-radius:24px;
+    margin-top:10px;transition:.2s;
+  }
+  .wa-inline:hover{filter:brightness(1.08);}
+  .wa-inline svg{width:15px;height:15px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .wa-pulse{animation:none;}
+  }
+
   /* footer */
   footer{
     padding:70px 6vw 40px;background:var(--night2);border-top:1px solid rgba(201,154,60,.2);
@@ -240,6 +311,7 @@
     <a href="#adventure">Adventure</a>
     <a href="#parks">Wildlife</a>
     <a href="#cafes">Cafes</a>
+    <a href="#map">Map</a>
   </nav>
 </header>
 
@@ -270,10 +342,10 @@
   </div>
   <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Laxman_Jhula_Bridge.jpg?width=1400" alt="Lakshman Jhula suspension bridge over the Ganga"><div class="banner-tint"></div><div class="banner-cap">Lakshman Jhula, the 450-foot iron suspension bridge, 1889</div></div>
   <div class="featured-grid">
-    <div class="tilt-card"><span class="num">Landmark</span><h3>Lakshman Jhula</h3><p>The town's most photographed crossing — a narrow iron footbridge strung 70 feet above the Ganga, shared with cows, sadhus and troops of monkeys.</p></div>
-    <div class="tilt-card"><span class="num">Landmark</span><h3>Ram Jhula</h3><p>The newer, sturdier cousin downstream, linking Swarg Ashram to Sivananda Nagar and carrying most of the town's foot traffic.</p></div>
-    <div class="tilt-card"><span class="num">Landmark</span><h3>Janki Setu</h3><p>A quieter bridge on the northern edge of town, popular for uncrowded sunrise and sunset views of the water.</p></div>
-    <div class="tilt-card"><span class="num">Landmark</span><h3>Swarg Ashram Area</h3><p>The car-free riverside quarter of temples, bookshops and food stalls that most visitors call the heart of Rishikesh.</p></div>
+    <div class="tilt-card"><span class="num">Landmark</span><h3>Lakshman Jhula</h3><p>The town's most photographed crossing — a narrow iron footbridge strung 70 feet above the Ganga, shared with cows, sadhus and troops of monkeys.</p><a class="map-link" data-place="Lakshman Jhula, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Landmark</span><h3>Ram Jhula</h3><p>The newer, sturdier cousin downstream, linking Swarg Ashram to Sivananda Nagar and carrying most of the town's foot traffic.</p><a class="map-link" data-place="Ram Jhula, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Landmark</span><h3>Janki Setu</h3><p>A quieter bridge on the northern edge of town, popular for uncrowded sunrise and sunset views of the water.</p><a class="map-link" data-place="Janki Setu, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Landmark</span><h3>Swarg Ashram Area</h3><p>The car-free riverside quarter of temples, bookshops and food stalls that most visitors call the heart of Rishikesh.</p><a class="map-link" data-place="Swarg Ashram, Rishikesh" href="#">📍 View on Google Maps</a></div>
   </div>
   <div class="chip-grid" id="landmarks-chips"></div>
 </section>
@@ -287,9 +359,9 @@
   </div>
   <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ganga_ghats,_Rishikesh_2.jpg?width=1400" alt="Stone ghats along the Ganges at Rishikesh"><div class="banner-tint"></div><div class="banner-cap">Ghats along the Ganga at Muni Ki Reti</div></div>
   <div class="featured-grid">
-    <div class="tilt-card"><span class="num">Ghat</span><h3>Triveni Ghat</h3><p>The town's main ghat and the site of its largest nightly Ganga Aarti, drawing the biggest crowds at dusk.</p></div>
-    <div class="tilt-card"><span class="num">Ghat</span><h3>Parmarth Niketan Ghat</h3><p>A wide, statue-lined ghat where hundreds gather each evening for one of Rishikesh's most elaborate aarti ceremonies.</p></div>
-    <div class="tilt-card"><span class="num">Ghat</span><h3>Ganga Beach</h3><p>A stretch of pale river sand near Tapovan, better suited to quiet sitting than swimming in the current.</p></div>
+    <div class="tilt-card"><span class="num">Ghat</span><h3>Triveni Ghat</h3><p>The town's main ghat and the site of its largest nightly Ganga Aarti, drawing the biggest crowds at dusk.</p><a class="map-link" data-place="Triveni Ghat, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Ghat</span><h3>Parmarth Niketan Ghat</h3><p>A wide, statue-lined ghat where hundreds gather each evening for one of Rishikesh's most elaborate aarti ceremonies.</p><a class="map-link" data-place="Parmarth Niketan Ghat, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Ghat</span><h3>Ganga Beach</h3><p>A stretch of pale river sand near Tapovan, better suited to quiet sitting than swimming in the current.</p><a class="map-link" data-place="Ganga Beach, Tapovan, Rishikesh" href="#">📍 View on Google Maps</a></div>
   </div>
   <div class="chip-grid" id="ghats-chips"></div>
 </section>
@@ -303,10 +375,10 @@
   </div>
   <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Front_entrance_of_the_Parmarth_Niketan,_in_Rishikesh,_Uttarakhand.jpg?width=1400" alt="Entrance gate of Parmarth Niketan ashram"><div class="banner-tint"></div><div class="banner-cap">Parmarth Niketan, one of Rishikesh's largest ashrams</div></div>
   <div class="featured-grid">
-    <div class="tilt-card"><span class="num">Ashram</span><h3>Parmarth Niketan</h3><p>A sprawling riverside ashram with daily yoga halls and the flower-lined ghat where its Ganga Aarti is held each evening.</p></div>
-    <div class="tilt-card"><span class="num">Ashram</span><h3>Sivananda Ashram</h3><p>Founded by Swami Sivananda in 1936, one of the oldest and most influential seats of modern yoga teaching in India.</p></div>
-    <div class="tilt-card"><span class="num">Ashram</span><h3>Maharishi Mahesh Yogi Ashram</h3><p>Known simply as the Beatles Ashram — the abandoned retreat where the band studied meditation in 1968, now open as a gallery of graffiti art.</p></div>
-    <div class="tilt-card"><span class="num">Ashram</span><h3>Art of Living Ashram</h3><p>A large, modern campus on the hills above town offering breathing and meditation courses to visitors from around the world.</p></div>
+    <div class="tilt-card"><span class="num">Ashram</span><h3>Parmarth Niketan</h3><p>A sprawling riverside ashram with daily yoga halls and the flower-lined ghat where its Ganga Aarti is held each evening.</p><a class="map-link" data-place="Parmarth Niketan Ashram, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Ashram</span><h3>Sivananda Ashram</h3><p>Founded by Swami Sivananda in 1936, one of the oldest and most influential seats of modern yoga teaching in India.</p><a class="map-link" data-place="Sivananda Ashram, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Ashram</span><h3>Maharishi Mahesh Yogi Ashram</h3><p>Known simply as the Beatles Ashram — the abandoned retreat where the band studied meditation in 1968, now open as a gallery of graffiti art.</p><a class="map-link" data-place="Beatles Ashram, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Ashram</span><h3>Art of Living Ashram</h3><p>A large, modern campus on the hills above town offering breathing and meditation courses to visitors from around the world.</p><a class="map-link" data-place="Art of Living Ashram, Rishikesh" href="#">📍 View on Google Maps</a></div>
   </div>
   <div class="chip-grid" id="ashrams-chips"></div>
 </section>
@@ -330,10 +402,10 @@
   </div>
   <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Trayambakeshwar_Temple,_Rishikesh.jpg?width=1400" alt="Trayambakeshwar thirteen-storey temple in Rishikesh"><div class="banner-tint"></div><div class="banner-cap">Trayambakeshwar — the "Tera Manzil" thirteen-storey temple</div></div>
   <div class="featured-grid">
-    <div class="tilt-card"><span class="num">Temple</span><h3>Neelkanth Mahadev Temple</h3><p>A forested Shiva temple 12 miles above town, reached by a winding mountain road through dense sal forest.</p></div>
-    <div class="tilt-card"><span class="num">Temple</span><h3>Trayambakeshwar Temple</h3><p>Better known as the Tera Manzil ("thirteen-storey") Temple — a candy-striped tower rising beside Lakshman Jhula.</p></div>
-    <div class="tilt-card"><span class="num">Temple</span><h3>Bharat Mandir</h3><p>Rishikesh's oldest temple, said to mark the very spot where the town's name originates, in the old town centre.</p></div>
-    <div class="tilt-card"><span class="num">Temple</span><h3>Kunjapuri Devi Temple</h3><p>A hilltop Devi shrine famous for one of the finest Himalayan sunrise views in the region.</p></div>
+    <div class="tilt-card"><span class="num">Temple</span><h3>Neelkanth Mahadev Temple</h3><p>A forested Shiva temple 12 miles above town, reached by a winding mountain road through dense sal forest.</p><a class="map-link" data-place="Neelkanth Mahadev Temple, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Temple</span><h3>Trayambakeshwar Temple</h3><p>Better known as the Tera Manzil ("thirteen-storey") Temple — a candy-striped tower rising beside Lakshman Jhula.</p><a class="map-link" data-place="Trayambakeshwar Temple, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Temple</span><h3>Bharat Mandir</h3><p>Rishikesh's oldest temple, said to mark the very spot where the town's name originates, in the old town centre.</p><a class="map-link" data-place="Bharat Mandir, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Temple</span><h3>Kunjapuri Devi Temple</h3><p>A hilltop Devi shrine famous for one of the finest Himalayan sunrise views in the region.</p><a class="map-link" data-place="Kunjapuri Devi Temple, Rishikesh" href="#">📍 View on Google Maps</a></div>
   </div>
   <div class="chip-grid" id="temples-chips"></div>
 </section>
@@ -347,9 +419,9 @@
   </div>
   <div class="banner"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bairaj_lake_river_Ganges_Near_aiims_Rishikesh.jpg?width=1400" alt="River Ganges near Rishikesh"><div class="banner-tint"></div><div class="banner-cap">The Ganges running through Rishikesh's outskirts</div></div>
   <div class="featured-grid">
-    <div class="tilt-card"><span class="num">Waterfall</span><h3>Neer Garh Waterfall</h3><p>The most accessible falls in Rishikesh, a short walk from Tapovan through a canopy of trees.</p></div>
-    <div class="tilt-card"><span class="num">Waterfall</span><h3>Garud Chatti Waterfall</h3><p>A multi-tiered fall on the old pilgrim trail toward Neelkanth, with natural pools for a cold dip.</p></div>
-    <div class="tilt-card"><span class="num">Waterfall</span><h3>Secret Waterfall</h3><p>An off-trail fall known mostly by word of mouth, tucked away from the main tourist paths.</p></div>
+    <div class="tilt-card"><span class="num">Waterfall</span><h3>Neer Garh Waterfall</h3><p>The most accessible falls in Rishikesh, a short walk from Tapovan through a canopy of trees.</p><a class="map-link" data-place="Neer Garh Waterfall, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Waterfall</span><h3>Garud Chatti Waterfall</h3><p>A multi-tiered fall on the old pilgrim trail toward Neelkanth, with natural pools for a cold dip.</p><a class="map-link" data-place="Garud Chatti Waterfall, Rishikesh" href="#">📍 View on Google Maps</a></div>
+    <div class="tilt-card"><span class="num">Waterfall</span><h3>Secret Waterfall</h3><p>An off-trail fall known mostly by word of mouth, tucked away from the main tourist paths.</p><a class="map-link" data-place="Secret Waterfall, Rishikesh" href="#">📍 View on Google Maps</a></div>
   </div>
   <div class="chip-grid" id="waterfalls-chips"></div>
 </section>
@@ -384,13 +456,37 @@
   <div class="icon-grid" id="cafes-grid"></div>
 </section>
 
+<!-- MAP -->
+<section class="map-section" id="map">
+  <div class="cat-head">
+    <span class="eyebrow">Find your way</span>
+    <h2>Rishikesh on the map</h2>
+    <p>Everything above sits within about 16km of the town centre. Tap any pin below to open it in Google Maps for directions.</p>
+  </div>
+  <div class="map-shell">
+    <iframe src="https://www.google.com/maps?q=Rishikesh,+Uttarakhand,+India&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  </div>
+  <div class="map-legend" id="mapLegend"></div>
+</section>
+
 <footer>
   <div>
     <div class="f-logo">रिषिकेश <span>Rishikesh</span></div>
     <p style="margin-top:14px;">A traveller's map of the Yoga Capital of the World — every bridge, ghat, ashram, temple, waterfall and trail worth knowing before you go.</p>
+    <a class="wa-inline" href="https://wa.me/919634536771?text=Hi!%20I%20found%20your%20Rishikesh%20guide%20and%20I%27d%20like%20to%20know%20more." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="#0a1b24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.92 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2m0 1.67a8.2 8.2 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.7-8.25 8.25-8.25M8.53 6.9c-.16 0-.43.06-.66.31s-.87.86-.87 2.08.89 2.4 1.02 2.57 1.74 2.8 4.32 3.82c2.14.85 2.58.68 3.04.64s1.49-.61 1.7-1.19.21-1.08.15-1.19-.23-.17-.48-.3-1.49-.74-1.72-.82-.4-.12-.56.12-.64.82-.79.99-.28.19-.53.06a6.7 6.7 0 0 1-1.98-1.22 7.4 7.4 0 0 1-1.37-1.7c-.14-.24 0-.37.11-.5.12-.13.24-.29.36-.44.11-.15.15-.25.23-.42s.04-.31-.02-.43-.55-1.34-.77-1.83c-.19-.46-.4-.42-.56-.42Z"/></svg>
+      Chat on WhatsApp
+    </a>
   </div>
   <div class="f-note">Photographs via Wikimedia Commons, used under their respective open licences.</div>
 </footer>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<a class="wa-float" href="https://wa.me/919634536771?text=Hi!%20I%27m%20planning%20a%20trip%20to%20Rishikesh%20and%20saw%20your%20guide." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <span class="wa-pulse"></span>
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.92 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2m0 1.67a8.2 8.2 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.7-8.25 8.25-8.25M8.53 6.9c-.16 0-.43.06-.66.31s-.87.86-.87 2.08.89 2.4 1.02 2.57 1.74 2.8 4.32 3.82c2.14.85 2.58.68 3.04.64s1.49-.61 1.7-1.19.21-1.08.15-1.19-.23-.17-.48-.3-1.49-.74-1.72-.82-.4-.12-.56.12-.64.82-.79.99-.28.19-.53.06a6.7 6.7 0 0 1-1.98-1.22 7.4 7.4 0 0 1-1.37-1.7c-.14-.24 0-.37.11-.5.12-.13.24-.29.36-.44.11-.15.15-.25.23-.42s.04-.31-.02-.43-.55-1.34-.77-1.83c-.19-.46-.4-.42-.56-.42Z"/></svg>
+  <span class="wa-tooltip">Chat with us on WhatsApp</span>
+</a>
 
 <script>
 // ---------- DATA ----------
@@ -424,9 +520,27 @@ const cafes = [
   ["Pyramid Cafe"],["Devraj Coffee Corner"],
 ];
 
+// ---------- GOOGLE MAPS ----------
+function mapUrl(place){
+  const q = /rishikesh/i.test(place) ? place : `${place}, Rishikesh, Uttarakhand, India`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+}
+function waUrl(place){
+  const msg = `Hi! I'd like to know more about ${place} in Rishikesh.`;
+  return `https://wa.me/919634536771?text=${encodeURIComponent(msg)}`;
+}
+// resolve the hardcoded map-link buttons on featured cards
+document.querySelectorAll('.map-link[data-place]').forEach(a => {
+  a.href = mapUrl(a.getAttribute('data-place'));
+  a.target = '_blank';
+  a.rel = 'noopener';
+});
+
 function fillChips(id, items){
   const el = document.getElementById(id);
-  el.innerHTML = items.map(t => `<span class="chip">${t}</span>`).join('');
+  el.innerHTML = items.map(t =>
+    `<a class="chip-link" href="${mapUrl(t)}" target="_blank" rel="noopener"><span class="chip">${t} ↗</span></a>`
+  ).join('');
 }
 fillChips('landmarks-chips', data.landmarks);
 fillChips('ghats-chips', data.ghats);
@@ -435,11 +549,20 @@ fillChips('temples-chips', data.temples);
 fillChips('waterfalls-chips', data.waterfalls);
 
 document.getElementById('adventure-grid').innerHTML = adventure.map(([g,t,d]) =>
-  `<div class="icon-card"><span class="glyph">${g}</span><h4>${t}</h4><p>${d}</p></div>`).join('');
+  `<div class="icon-card"><span class="glyph">${g}</span><h4>${t}</h4><p>${d}</p><a class="map-link" href="${mapUrl(t)}" target="_blank" rel="noopener">📍 View on Google Maps</a><br><a class="map-link" href="${waUrl(t)}" target="_blank" rel="noopener">💬 Ask on WhatsApp</a></div>`).join('');
 document.getElementById('parks-grid').innerHTML = parks.map(([g,t,d]) =>
-  `<div class="icon-card"><span class="glyph">${g}</span><h4>${t}</h4><p>${d}</p></div>`).join('');
+  `<div class="icon-card"><span class="glyph">${g}</span><h4>${t}</h4><p>${d}</p><a class="map-link" href="${mapUrl(t)}" target="_blank" rel="noopener">📍 View on Google Maps</a></div>`).join('');
 document.getElementById('cafes-grid').innerHTML = cafes.map(([t]) =>
-  `<div class="icon-card"><span class="glyph">☕</span><h4>${t}</h4><p>Riverside seating, sattvic menu, Rishikesh institution.</p></div>`).join('');
+  `<div class="icon-card"><span class="glyph">☕</span><h4>${t}</h4><p>Riverside seating, sattvic menu, Rishikesh institution.</p><a class="map-link" href="${mapUrl(t)}" target="_blank" rel="noopener">📍 View on Google Maps</a></div>`).join('');
+
+// map legend — quick jump pins for the most-searched spots
+const legendSpots = [
+  "Lakshman Jhula","Ram Jhula","Triveni Ghat","Parmarth Niketan","Beatles Ashram",
+  "Trayambakeshwar Temple","Neelkanth Mahadev Temple","Neer Garh Waterfall",
+  "Jumpin Heights Bungee","Rajaji National Park"
+];
+document.getElementById('mapLegend').innerHTML = legendSpots.map(s =>
+  `<a href="${mapUrl(s)}" target="_blank" rel="noopener">📍 ${s}</a>`).join('');
 
 // stat strip
 const stats = [
